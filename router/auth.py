@@ -65,10 +65,11 @@ def create_access_token(username:str,user_id:int,expiry_time:Optional[timedelta]
     else:
         expire=datetime.utcnow()+timedelta(minutes=45)
     encode.update({"exp":expire})
-    return jwt.encode(encode,SECRET_KEY,algorithm=ALGORITH)
+    return jwt.encode(encode,SECRET_KEY,algorithm=ALGORITH
+    )
 def check_reset_password_token(reset_user:ResetPassword,reset_password:str,db:Session = Depends(get_db)):
     reset_user_new=models.Users
-    reset_user_new.hashed_password=reset_user.new_password
+    reset_user_new.hashed_password=reset_user.new_password  
     db.add(reset_user_new)
     db.commit()
     return reset_password

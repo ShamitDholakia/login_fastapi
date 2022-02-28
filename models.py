@@ -1,6 +1,7 @@
 from sqlalchemy import Boolean,Integer,String,Column,ForeignKey
 from database import Base
 from sqlalchemy.orm import relationship
+
 class Users(Base):
     __tablename__="users"
 
@@ -20,9 +21,13 @@ class Recipe(Base):
     name=Column(String)
     description=Column(String)
     owner_id=Column(Integer,ForeignKey("users.id"))
-
     owner=relationship("Users",back_populates="recipe")
+    ingredients=relationship("Ingredients",back_populates="owner2")
 
-
-
-
+class Ingredients(Base):
+    __tablename__="ingredients"
+    id=Column(Integer,primary_key=True,index=False)
+    ingredients1=Column(String)
+    ingredients2=Column(String)
+    foreign_key=Column(Integer,ForeignKey("recipe.id"))
+    owner2=relationship("Recipe",back_populates="ingredients")
